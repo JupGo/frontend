@@ -1,0 +1,1 @@
+export { ReactComponent as ICsodam } from './ic_themeHipJoin.svg';
