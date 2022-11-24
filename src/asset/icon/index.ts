@@ -1,1 +1,1 @@
-export { ReactComponent as ICsodam } from './ic_themeHipJoin.svg';
+export { ReactComponent as IcLogo } from './IcLogo.svg';
