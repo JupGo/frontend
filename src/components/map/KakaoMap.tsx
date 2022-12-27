@@ -1,46 +1,32 @@
 import { Component, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+
+import { KakaoMapInfo } from '../../types/map';
 
 const KakaoMap = () => {
   const [map, setMap] = useState({});
-  const [latitude, setLatitude] = useState<number>();
-  const [longtitude, setLongtitude] = useState<number>();
-  //   const latitude = useRef<number>();
-  //   const longtitude = useRef<number>();
-
+  const [kakaoMapInfo, setKakaoMapInfo] = useState<KakaoMapInfo>();
   const { kakao } = window;
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setLatitude(position.coords.latitude);
-        setLongtitude(position.coords.longitude);
-        // latitude.current = position.coords.latitude;
-        // longtitude.current = position.coords.longitude;
-
-        console.log(latitude, longtitude);
+        setKakaoMapInfo({ latitude: position.coords.latitude, longitude: position.coords.longitude });
       });
     }
-    const container = document.getElementById('map');
-    const options = {
-      center: new kakao.maps.LatLng(latitude, longtitude),
-      level: 3,
-    };
-
-    setMap(new kakao.maps.Map(container, options));
   }, []);
+  useEffect(() => {
+    if (kakaoMapInfo) {
+      const container = document.getElementById('map');
+      const options = {
+        center: new kakao.maps.LatLng(kakaoMapInfo.latitude, kakaoMapInfo.longitude),
+        level: 3,
+      };
 
-  console.log('밖', latitude, longtitude);
-  return latitude != undefined && longtitude != undefined ? (
-    <StMapWrapper id="map"></StMapWrapper>
-  ) : (
-    <div>lodiing중...</div>
-  );
+      setMap(new kakao.maps.Map(container, options));
+    }
+  }, [kakaoMapInfo]);
+  return kakaoMapInfo != undefined ? <StMapWrapper id="map"></StMapWrapper> : <div>lodiing중...</div>;
 };
 
 export default KakaoMap;
