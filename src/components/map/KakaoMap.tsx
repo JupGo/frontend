@@ -1,4 +1,4 @@
-import { Component, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { KakaoMapInfo } from '../../types/map';
@@ -26,12 +26,14 @@ const KakaoMap = () => {
       setMap(new kakao.maps.Map(container, options));
     }
   }, [kakaoMapInfo]);
-  return kakaoMapInfo != undefined ? <StMapWrapper id="map"></StMapWrapper> : <div>lodiing중...</div>;
+
+  if (!kakaoMapInfo) return <div>Loading중...</div>;
+  return <StMapWrapper id="map" />;
 };
 
 export default KakaoMap;
 
 const StMapWrapper = styled.div`
-  width: 39rem;
-  height: 84.4rem;
+  width: 100%;
+  height: 100%;
 `;
