@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // import noTreeImage from '../asset/image/BgTreeDiaryEmpty.png';
@@ -61,6 +61,20 @@ const diaries = [
 ];
 */
 
+interface TreeType {
+  id: number;
+  name: string;
+  percentage: number;
+  photo: string;
+}
+
+/*
+interface NextPage {
+  currentPage: number;
+  trees: TreeType[];
+}
+*/
+
 const myRecord = {
   distance: 17300,
   trees: [
@@ -88,15 +102,68 @@ const myRecord = {
       percentage: 100,
       photo: '../IcTempTree.png',
     },
+    {
+      id: 5,
+      name: '달리기나무',
+      percentage: 100,
+      photo: '../IcTempTree.png',
+    },
+    {
+      id: 6,
+      name: '달리기나무',
+      percentage: 100,
+      photo: '../IcTempTree.png',
+    },
+    {
+      id: 7,
+      name: '달리기나무',
+      percentage: 100,
+      photo: '../IcTempTree.png',
+    },
+    {
+      id: 8,
+      name: '달리기나무',
+      percentage: 100,
+      photo: '../IcTempTree.png',
+    },
   ],
 };
 
+const chunk = (array: TreeType[], size: number) => {
+  const chunkedArray = [];
+  const numberOfPages = Math.ceil(array.length / size);
+
+  for (let i = 0; i < numberOfPages; i++) {
+    const slicedArray = array.slice(i * size, i * size + size);
+    chunkedArray.push(slicedArray);
+  }
+
+  return chunkedArray;
+};
 const TreeDiaryExist = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePreviousPageButtonClick = () => {
+    if (currentPage === 0) {
+      return;
+    } else {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNextPageButtonClick = () => {
+    if (currentPage === Math.ceil(myRecord.trees.length / 6) - 1) {
+      return;
+    } else {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
   return (
     <StRoot>
       <StTopBar>
         <StHomeButton type="button">
-          <StHomeButtonImage src={IC_HOME_BUTTON_IMAGE_SRC} alt="home" />
+          <StHomeButtonImage src={IC_HOME_BUTTON_IMAGE_SRC} alt="홈" />
         </StHomeButton>
       </StTopBar>
       <StContent>
@@ -118,19 +185,27 @@ const TreeDiaryExist = () => {
             <StDistanceOfPloggingRecord>{myRecord.distance} km</StDistanceOfPloggingRecord>
           </StDistanceOfPlogging>
         </StRecordContainer>
-        <StSeeAllRecordButton>전체 기록 보기</StSeeAllRecordButton>
+        <StSeeAllRecordButton type="button">전체 기록 보기</StSeeAllRecordButton>
         <StMyTreesContainer>
-          {myRecord.trees.map((tree) => {
+          {chunk(myRecord.trees, 6)[currentPage].map((tree) => {
             return (
               <StMyTree key={tree.id}>
-                <StMyTreeImage src={tree.photo} />
+                <StMyTreeImage src={tree.photo} alt="나무 사진" />
                 <StMyTreeName>{tree.name}</StMyTreeName>
                 <StMyTreePercentage>{tree.percentage}%</StMyTreePercentage>
               </StMyTree>
             );
           })}
-          <StNextPageButton>
-            <StNextPageButtonImage src={IC_NEXT_PAGE_IMAGE_SRC} />
+          <StPreviousPageButton type="button" onClick={handlePreviousPageButtonClick}>
+            <StPreviousPageButtonImage src={IC_NEXT_PAGE_IMAGE_SRC} alt="이전 페이지" currentPage={currentPage} />
+          </StPreviousPageButton>
+          <StNextPageButton type="button" onClick={handleNextPageButtonClick}>
+            <StNextPageButtonImage
+              src={IC_NEXT_PAGE_IMAGE_SRC}
+              alt="다음 페이지"
+              currentPage={currentPage}
+              trees={myRecord.trees}
+            />
           </StNextPageButton>
         </StMyTreesContainer>
       </StContent>
@@ -245,8 +320,9 @@ const StDistanceOfPloggingRecord = styled.div`
   text-align: center;
 `;
 
-const StSeeAllRecordButton = styled.div`
+const StSeeAllRecordButton = styled.button`
   background-color: #b6e599;
+  border: none;
   border-radius: 14px;
   color: white;
   font-weight: 700;
@@ -294,6 +370,25 @@ const StMyTreePercentage = styled.div`
   text-align: center;
 `;
 
+const StPreviousPageButton = styled.button`
+  width: 28px;
+  height: 24px;
+  position: absolute;
+  top: 50%;
+  left: -7%;
+  transform: translate(0, -50%) rotate(0.5turn);
+  border: none;
+  background-color: transparent;
+  background-size: cover;
+`;
+
+const StPreviousPageButtonImage = styled.img<{ currentPage: number }>`
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  object-position: ${({ currentPage }) => (currentPage === 0 ? '0 -20px' : '0 0')};
+`;
+
 const StNextPageButton = styled.button`
   width: 28px;
   height: 24px;
@@ -305,9 +400,11 @@ const StNextPageButton = styled.button`
   background-color: transparent;
 `;
 
-const StNextPageButtonImage = styled.img`
+const StNextPageButtonImage = styled.img<{ currentPage: number; trees: TreeType[] }>`
   width: 20px;
   height: 20px;
+  object-fit: cover;
+  object-position: ${({ currentPage, trees }) => (currentPage === Math.ceil(trees.length / 6) - 1 ? '0 -20px' : '0 0')};
 `;
 
 export default TreeDiaryExist;
