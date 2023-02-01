@@ -16,6 +16,7 @@ declare module 'styled-components' {
     };
     fonts: {
       Jupgo_Bold_32: SerializedStyles;
+      Jupgo_Bold_20: SerializedStyles;
       Jupgo_SemiBold_32: SerializedStyles;
       Jupgo_Regular_32: SerializedStyles;
     };

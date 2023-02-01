@@ -20,6 +20,13 @@ const fonts = {
     font-size: 3.2rem;
     line-height: 4.4rem;
   `,
+  Jupgo_Bold_20: css`
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.7rem;
+  `,
   Jupgo_SemiBold_32: css`
     font-family: 'Noto Sans';
     font-style: normal;
