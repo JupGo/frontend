@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { KakaoMapInfo } from '../../types/map';
 
 const KakaoMap = () => {
-  const [map, setMap] = useState({});
   const [kakaoMapInfo, setKakaoMapInfo] = useState<KakaoMapInfo>();
   const { kakao } = window;
 
@@ -23,7 +22,14 @@ const KakaoMap = () => {
         level: 3,
       };
 
-      setMap(new kakao.maps.Map(container, options));
+      const map = new kakao.maps.Map(container, options);
+      const markerPosition = new kakao.maps.LatLng(kakaoMapInfo.latitude, kakaoMapInfo.longitude);
+
+      const marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+
+      marker.setMap(map);
     }
   }, [kakaoMapInfo]);
 
