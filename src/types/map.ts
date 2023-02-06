@@ -3,7 +3,7 @@ declare global {
     kakao: any;
   }
 }
-export interface KakaoMapInfo {
+export interface KakaoMapLocation {
   latitude: number;
   longitude: number;
 }
