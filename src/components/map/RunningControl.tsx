@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { IcRunning } from '../../asset/icon';
 import useCouter from '../../lib/hooks/useCouter';
+import useCurrentLocation from '../../lib/hooks/useCurrentLocation';
 import { floggingInfoState } from '../../recoil/atom';
 import { getDateParse } from '../../utils/dateParse';
 import JupgoButton from './JupgoButton';
@@ -12,18 +13,23 @@ const RunningControl = () => {
   const [isFloggingPause, setIsFloggintPause] = useState(false);
   const [floggingInfo, setFloggingInfo] = useRecoilState(floggingInfoState);
   const { count, start, stop } = useCouter(0, 1000);
+  const { startRecordLocation, stopRecordLocation } = useCurrentLocation();
+
   const { distance, duration } = floggingInfo;
 
   const handleFloggingStart = () => {
     start();
+    startRecordLocation();
     setIsFloggintPause(!isFloggingPause);
   };
   const handleFloggingPause = () => {
     stop();
+    stopRecordLocation();
     setIsFloggintPause(!isFloggingPause);
   };
   const handleFloggingStop = () => {
     stop();
+    stopRecordLocation();
     setFloggingInfo({ ...floggingInfo });
   };
 
