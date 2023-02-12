@@ -27,12 +27,40 @@ const fonts = {
     font-size: 2rem;
     line-height: 2.7rem;
   `,
+  Jupgo_Bold_15: css`
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  `,
   Jupgo_SemiBold_32: css`
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 3.2rem;
     line-height: 4.4rem;
+  `,
+  Jupgo_Medium_20: css`
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 2.7rem;
+  `,
+  Jupgo_Medium_12: css`
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  `,
+  Jupgo_Medium_10: css`
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.3rem;
   `,
   Jupgo_Regular_32: css`
     font-family: 'Noto Sans';
