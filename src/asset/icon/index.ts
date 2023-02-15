@@ -1,11 +1,10 @@
 export { ReactComponent as IcAlbum } from './IcAlbum.svg';
 export { ReactComponent as IcBackBtn } from './IcBackBtn.svg';
 export { ReactComponent as IcCamera } from './IcCamera.svg';
-export { ReactComponent as IcLogo } from './IcLogo.svg';
-export { ReactComponent as IcMainDefault } from './IcMainDefault.svg';
-export { ReactComponent as IcSubDefault } from './IcSubDefault.svg';
 export { ReactComponent as IcFloggingStart } from './IcFlogging.svg';
 export { ReactComponent as IcLogo } from './IcLogo.svg';
+export { ReactComponent as IcMainDefault } from './IcMainDefault.svg';
 export { ReactComponent as IcTemporaryPause } from './IcPause.svg';
 export { ReactComponent as IcRunning } from './IcRunning.svg';
 export { ReactComponent as IcStop } from './IcStop.svg';
+export { ReactComponent as IcSubDefault } from './IcSubDefault.svg';

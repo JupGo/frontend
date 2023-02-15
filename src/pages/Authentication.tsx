@@ -1,4 +1,7 @@
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcBackBtn, IcMainDefault } from '../asset/icon';
@@ -6,9 +9,11 @@ import subDefaultImg1 from '../asset/image/subDefaultImg1.png';
 import subDefaultImg2 from '../asset/image/subDefaultImg2.png';
 import subDefaultImg3 from '../asset/image/subDefaultImg3.png';
 import subDefaultImg4 from '../asset/image/subDefaultImg4.png';
+import { floggingInfoState } from '../recoil/atom';
 
 const Authentication = () => {
   const userFile = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [images, setImages] = useState<any>();
   const [prevImage, setPrevImage] = useState<any>();
@@ -16,6 +21,11 @@ const Authentication = () => {
   const [clickedImage, setClickedImage] = useState<string>();
 
   const imageDownload = useRef<HTMLAnchorElement | null>(null);
+
+  const [floggingInfo, setFloggingInfo] = useRecoilState(floggingInfoState);
+  useEffect(() => {
+    console.log(floggingInfo);
+  }, []);
 
   const getUserFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsUploaded(true);
@@ -50,12 +60,28 @@ const Authentication = () => {
     setIsPopUpOpen(false);
   };
 
+  const completeFlogging = async () => {
+    try {
+      await axios.post('https://e4a3584e-23b7-4454-8b4a-a42d2d4aa74a.mock.pstmn.io/diary', {
+        date: floggingInfo.date,
+        location: floggingInfo.location,
+        distance: floggingInfo.distance,
+        duration: floggingInfo.duration,
+        photo: floggingInfo.photo,
+      });
+
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Root>
       <AuthenticationHeader>
         <BackButton />
         <Title>줍Go 인증</Title>
-        {isUploaded && <CompleteButton>완료</CompleteButton>}
+        {isUploaded && <CompleteButton onClick={completeFlogging}>완료</CompleteButton>}
       </AuthenticationHeader>
       <MainImageSection>
         {isUploaded ? (
