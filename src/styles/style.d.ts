@@ -14,5 +14,15 @@ declare module 'styled-components' {
       gray_02: string;
       gray_bg: string;
     };
+    fonts: {
+      Jupgo_Bold_32: SerializedStyles;
+      Jupgo_Bold_20: SerializedStyles;
+      Jupgo_Bold_15: SerializedStyles;
+      Jupgo_SemiBold_32: SerializedStyles;
+      Jupgo_Medium_20: SerializedStyles;
+      Jupgo_Medium_12: SerializedStyles;
+      Jupgo_Medium_10: SerializedStyles;
+      Jupgo_Regular_32: SerializedStyles;
+    };
   }
 }
